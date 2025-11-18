@@ -1,11 +1,12 @@
 import { useState } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import { LogIn, ShoppingBag } from 'lucide-react'
+import { LogIn, ShoppingBag, Info } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card'
 import { useAuth } from '@/contexts/AuthContext'
+import { isMockMode } from '@/services/supabase'
 
 export default function LoginPage() {
   const [email, setEmail] = useState('')
@@ -58,6 +59,21 @@ export default function LoginPage() {
             </CardDescription>
           </CardHeader>
           <CardContent>
+            {isMockMode && (
+              <div className="mb-4 bg-blue-50 border border-blue-200 text-blue-800 px-4 py-3 rounded-md text-sm">
+                <div className="flex items-start gap-2">
+                  <Info className="h-4 w-4 mt-0.5 flex-shrink-0" />
+                  <div>
+                    <strong className="block mb-1">DEMO MOD - Test Giriş Bilgileri:</strong>
+                    <p className="text-xs">
+                      <strong>E-posta:</strong> herhangi bir email (örn: admin@test.com)<br />
+                      <strong>Şifre:</strong> en az 6 karakter (örn: 123456)
+                    </p>
+                  </div>
+                </div>
+              </div>
+            )}
+
             <form onSubmit={handleSubmit} className="space-y-4">
               {error && (
                 <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-md text-sm">
